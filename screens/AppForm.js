@@ -19,17 +19,19 @@ export default function AppForm({ route, navigation }) {
 
     function handleDescriptionChange(descricao) { setDescricao(descricao); }
     function handleQuantityChange(quantidade) { setQuantidade(quantidade); }
+
     async function handleButtonPress() {
         const listItem = { descricao, quantidade: parseInt(quantidade) };
 
         Database.saveItem(listItem, id)
             .then(response => navigation.navigate("AppList", listItem))
-            .catch(error => console.log(error));
-
-
-
-
+            .catch(error => console.log(error))
+            .finally(() => {
+                setDescricao("");
+                setQuantidade("");
+            });
     }
+
     return (
         <View style={styles.container}>
             <Text style={styles.title}>Item para comprar</Text>
