@@ -19,7 +19,7 @@ export default function AppList({ route, navigation }) {
                 style={styles.scrollContainer}
                 contentContainerStyle={styles.itemsContainer}>
                 {items.map(item => {
-                    return <AppItem key={item.id} id={item.id} item={item.quantidade + '  de ' + item.descricao} />
+                    return <AppItem key={item.id} id={item.id} item={item.quantidade + '  de ' + item.descricao} navigation={navigation} />
                 })}
 
             </ScrollView>
@@ -31,7 +31,7 @@ export default function AppList({ route, navigation }) {
 const styles = StyleSheet.create({
     container: {
         flex: 1,
-        backgroundColor: '#D93600',
+        backgroundColor: '#3c096c',
         alignItems: 'center',
         justifyContent: 'center'
     },

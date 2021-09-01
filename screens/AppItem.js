@@ -1,18 +1,45 @@
 import React from 'react';
-import { StyleSheet, Text, View, TouchableOpacity } from 'react-native';
+import { StyleSheet, Text, View, TouchableOpacity, Alert } from 'react-native';
 import Database from "../services/Database";
 
 export default function AppItem(props) {
     async function handleEditPress() {
-        const item = await Database.getItem(props.id);
-        props.navigation.navigate("AppForm", item);
+        try {
+            const item = await Database.getItem(props.id);
+            props.navigation.navigate("AppForm", item);
+        } catch (err) {
+            console.log("TESTANDO ERROR", props.navigation)
+            Alert.alert(JSON.stringify(err))
+        }
+    }
+    function handleDeletePress() {
+        Alert.alert(
+            "Atenção",
+            "Você tem certeza que deseja excluir este item?",
+            [
+                {
+                    text: "Não",
+                    onPress: () => console.log("Cancel Pressed"),
+                    style: "cancel"
+                },
+                {
+                    text: "Sim", onPress: () => {
+                        Database.deleteItem(props.id)
+                            .then(response => props.navigation.navigate("AppList", { id: props.id }));
+                    }
+                }
+            ],
+            { cancelable: false }
+        );
     }
     return (
         <View style={styles.container}>
             <Text style={styles.textItem}>{props.item}</Text>
             <View style={styles.buttonsContainer}>
-                <TouchableOpacity style={styles.deleteButton} >
+                <TouchableOpacity style={styles.deleteButton}
+                    onPress={handleDeletePress} >
                     <Text style={styles.buttonText}>X</Text>
+
                 </TouchableOpacity>
                 <TouchableOpacity
                     style={styles.editButton}
@@ -41,7 +68,7 @@ const styles = StyleSheet.create({
     editButton: {
         marginLeft: 10,
         height: 40,
-        backgroundColor: 'blue',
+        backgroundColor: '#7b2cbf',
         borderRadius: 10,
         padding: 10,
         fontSize: 12,

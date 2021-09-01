@@ -1,13 +1,13 @@
 import React, { useState, useEffect } from 'react';
 import { StatusBar } from 'expo-status-bar';
-import { StyleSheet, Text, View, TextInput, TouchableOpacity } from 'react-native';
-import AsyncStorage from '@react-native-async-storage/async-storage';
-import Database from "../services/Database";
+import { StyleSheet, Text, View, TextInput, TouchableOpacity, alert, Modal } from 'react-native';
+import Database from '../services/Database';
 
 export default function AppForm({ route, navigation }) {
     const id = route.params ? route.params.id : undefined;
     const [descricao, setDescricao] = useState('');
     const [quantidade, setQuantidade] = useState('');
+
 
     useEffect(() => {
         if (!route.params) return;
@@ -21,8 +21,14 @@ export default function AppForm({ route, navigation }) {
     function handleQuantityChange(quantidade) { setQuantidade(quantidade); }
     async function handleButtonPress() {
         const listItem = { descricao, quantidade: parseInt(quantidade) };
+
         Database.saveItem(listItem, id)
-            .then(response => navigation.navigate("AppList", listItem));
+            .then(response => navigation.navigate("AppList", listItem))
+            .catch(error => console.log(error));
+
+
+
+
     }
     return (
         <View style={styles.container}>
@@ -54,7 +60,7 @@ export default function AppForm({ route, navigation }) {
 const styles = StyleSheet.create({
     container: {
         flex: 1,
-        backgroundColor: '#D93600',
+        backgroundColor: '#3c096c',
         alignItems: 'center',
     },
     title: {
@@ -85,7 +91,7 @@ const styles = StyleSheet.create({
     button: {
         marginTop: 10,
         height: 60,
-        backgroundColor: 'blue',
+        backgroundColor: '#7b2cbf',
         borderRadius: 10,
         paddingHorizontal: 24,
         fontSize: 16,
