@@ -25,7 +25,7 @@ Este projeto foi desenvolvido com as seguintes tecnologias:
 <br>
 
 Nesta tela é realizado a inserção de produtos, ela é composta por inputs para inserir
-a descrição do produto e a quatidade, na parte inferior fica as abas "adicionar" ou "compras" que é onde verifica sua lista de compras.
+a descrição do produto e a quantidade, na parte inferior fica as abas "adicionar" ou "compras" que é onde verifica sua lista de compras.
 <br>
 <br>
  
